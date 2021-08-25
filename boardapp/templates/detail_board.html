@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{ board_target.Board_Owner }}
+    <p></p>
+    {{ board_target.Board_title }}
+    <p></p>
+    {{ board_target.Board_img }}
+    <p></p>
+    {{ board_target.Board_text }}
+    <p></p>
+    {{ board_target.pk }} pk임
+    <form action="{% url 'boardapp:detail_board' pk=board_target.pk %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+    </form>
+</body>
+</html>

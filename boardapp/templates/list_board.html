@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>게시판</h1>
+    {% for list in list_board %}
+        <a href="{% url 'boardapp:detail_board' pk=list.pk %}">{{ list.Board_title }}</a>
+        <p></p>
+    {% endfor %}
+    <hr>
+    <a href="{% url 'boardapp:create_board' %}">글쓰기</a>
+</body>
+</html>
