@@ -7,6 +7,7 @@ urlpatterns = [
     path('account/', include('accountapp.urls')),
     path('main/', include('mainapp.urls')),
     path('screen/', include('boardapp.urls')),
+    path('comment/', include('commentapp.urls')),
 
     path('admin/', admin.site.urls),
 ]

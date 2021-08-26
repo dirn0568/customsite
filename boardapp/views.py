@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView
 
 from boardapp.forms import BoardForm
@@ -40,8 +40,13 @@ class DetailBoardView(DetailView, CreateView):
         print(self.get_object(), '3333333333333333333333')
         temp_comment.Comment_Board = self.get_object()
         temp_comment.save()
+        return super().form_valid(form)
 
-    # def get_success_url(self):
-    #     return HttpRedirect(boardapp:board)
+    def get_success_url(self):
+        # print('진행중?')
+        # print(self.object)
+        # print(self.get_object())
+        # print(self.get_queryset())
+        return reverse('boardapp:detail_board', kwargs={'pk': self.get_object().pk})
 
 
