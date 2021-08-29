@@ -5,21 +5,29 @@
     <title>Title</title>
 </head>
 <body>
-    {{ board_target.Board_Owner }}
-    <p></p>
-    {{ board_target.Board_title }}
-    <p></p>
-    {{ board_target.Board_img }}
-    <p></p>
-    {{ board_target.Board_text }}
-    <p></p>
-    {{ board_target.pk }} pk임
-    <form action="{% url 'boardapp:detail_board' pk=board_target.pk %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
-    </form>
+    {% for list in board_target %}
+        {{ list.Board_Owner }}
+        <p></p>
+        {{ list.Board_title }}
+        <p></p>
+        {{ list.Board_img }}
+        <p></p>
+        {{ list.Board_text }}
+        <p></p>
+        {{ list.pk }} pk임
+        <form action="{% url 'boardapp:detail_board' pk=list.pk %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+        </form>
+    {% endfor %}
     <hr>
-    {% include 'detail_comment.html' with comment_target=board_target %}
+    {% for list in board_comment_target %}
+        {{ list.Comment_line }}
+        {{ list.Comment_User.nickname }}
+        {{ list.Comment_Time }}
+        <a href="{% url 'commentapp:delete_comment' pk=list.pk %}">X</a>
+        <p></p>
+    {% endfor %}
 </body>
 </html>
