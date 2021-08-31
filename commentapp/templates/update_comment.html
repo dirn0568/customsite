@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="{% url 'commentapp:update_comment' pk=target_comment.pk %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        업데이트
+        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+    </form>
+</body>
+</html>

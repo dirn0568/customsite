@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from commentapp.views import DeleteCommentView
+from commentapp import views
+from commentapp.views import UpdateCommentView
 
 app_name = 'commentapp'
 
 urlpatterns = [
-    path('delete_comment/<int:pk>', DeleteCommentView.as_view(), name='delete_comment'),
+    path('update_comment/<int:pk>', UpdateCommentView.as_view(), name='update_comment'),
+    path('delete-comment/<int:pk>', views.deletecommentview, name='delete-comment'),
 ]

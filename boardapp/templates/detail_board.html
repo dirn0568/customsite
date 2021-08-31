@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script language="javascript">
+	function delete_check(url){
+		var answer;
+		answer = confirm("데이터를 삭제하시겠습니까?");
+		if(answer == true){
+			location = url;
+		}
+	}
+	</script>
+
 </head>
 <body>
     {% for list in board_target %}
@@ -10,7 +20,9 @@
         <p></p>
         {{ list.Board_title }}
         <p></p>
-        {{ list.Board_img }}
+        {% if list.Board_img.url != None %}
+            <img src="{{ list.Board_img.url }}" alt="" width="300" height="300" style="border-radius: 20px;">
+        {% endif %}
         <p></p>
         {{ list.Board_text }}
         <p></p>
@@ -26,7 +38,10 @@
         {{ list.Comment_line }}
         {{ list.Comment_User.nickname }}
         {{ list.Comment_Time }}
-        <a href="{% url 'commentapp:delete_comment' pk=list.pk %}">X</a>
+        <a href="{% url 'commentapp:update_comment' pk=list.pk %}">
+            수정
+        </a>
+        <a href="javascript:delete_check('{% url 'commentapp:delete-comment' pk=list.pk %}')">X</a>
         <p></p>
     {% endfor %}
 </body>
