@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>채팅창</h1>
+    {% for list in chat_data %}
+        {{ list.chat_line }}
+        {{ list.chat_img }}
+    {% endfor %}
+    <form action="{% url 'chatapp:chat' pk=chat_pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ chat_form }}
+        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+    </form>
+</body>
+</html>

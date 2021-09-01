@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for user_list in user_data %}
+        <a href="{% url 'chatapp:chat' pk=user_list.pk %}">
+            {{ user_list }}
+            {{ user_list.pk }}
+        </a>
+        <p></p>
+    {% endfor %}
+</body>
+</html>

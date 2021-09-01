@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+</head>
+<body>
+    <img src="{% static 'title.png' %}" alt="" width="300" height="300" style="border-radius: 20px;">
+    <a href='https://.pngtree.com/so/편지'>편지 png에서 .pngtree.com/</a>
+    <p></p>
+    <a href="{% url 'boardapp:list_board' %}">게시판</a>
+    <a href="{% url 'mainapp:search_friend' %}">친구찾기</a>
+    <p></p>
+    {% if not user.is_authenticated %}
+        <a href="{% url 'accountapp:login' %}" %}>로그인</a>
+    {% else %}
+        <a href="{% url 'accountapp:logout' %}" %}>로그아웃</a>
+    {% endif %}
+    <a href="{% url 'accountapp:create_user' %}" %}>회원가입</a>
+</body>
+</html>

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'mainapp',
     'boardapp',
     'commentapp',
+    'chatapp',
 ]
 
 MIDDLEWARE = [

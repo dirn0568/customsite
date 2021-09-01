@@ -14,7 +14,6 @@ class Create_User(CreateView):
     model = User
     form_class = Create_User_Form
     template_name = 'create_user.html'
-    success_url = reverse_lazy('accountapp:test')
 
     # def form_valid(self, form):
     #     temp_test = form.save(commit=False)
@@ -49,4 +48,4 @@ class Delete_User(DeleteView):
 
 def test(request):
     context = {}
-    return render(request, 'test.html', context)
+    return render(request, 'test2.html', context)

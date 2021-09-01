@@ -8,6 +8,7 @@ urlpatterns = [
     path('main/', include('mainapp.urls')),
     path('screen/', include('boardapp.urls')),
     path('comment/', include('commentapp.urls')),
+    path('chat/', include('chatapp.urls')),
 
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
