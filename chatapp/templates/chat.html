@@ -5,15 +5,44 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>채팅창</h1>
-    {% for list in chat_data %}
-        {{ list.chat_line }}
-        {{ list.chat_img }}
+    <div align="center">
+        <h1>채팅창</h1>
+    </div>
+    {{ request.user }}
+    <p></p>
+    {% for list in chat_users %}
+        {% for delete_queryset in list %}
+            {% if delete_queryset.send_user == request.user %}
+                <div align="right">
+                    {{ delete_queryset.chat_line }}
+                    {% if delete_queryset.chat_img %}
+                        <p></p>
+                        <img src="{{ delete_queryset.chat_img.url }}" alt="" width="300" height="300" style="border-radius: 20px;">
+                        {{ delete_queryset.chat_time }}
+                        <p></p>
+                    {% else %}
+                        {{ delete_queryset.chat_time }}
+                        <p></p>
+                </div>
+                {% endif %}
+            {% else %}
+                <div align="left">
+                    {{ delete_queryset.chat_line }}
+                    <p></p>
+                    {% if delete_queryset.chat_img %}
+                        <img src="{{ delete_queryset.chat_img.url }}" alt="" width="300" height="300" style="border-radius: 20px;">
+                        <p></p>
+                </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     {% endfor %}
-    <form action="{% url 'chatapp:chat' pk=chat_pk %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ chat_form }}
-        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
-    </form>
+    <div align="right">
+        <form action="{% url 'chatapp:chat' pk=chat_pk %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ chat_form }}
+            <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+        </form>
+    </div>
 </body>
 </html>

@@ -12,6 +12,8 @@ class ChatModel(models.Model):
 
     chat_time = models.DateField(auto_now_add=True)
 
+# class test(models.Model)
+
 
 
 class TestModel2(models.Model):
