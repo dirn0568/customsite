@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+    body{
+        background-color:#E4F7BA;
+    }
+    </style>
+</head>
 </head>
 <body>
     <h1>게시판</h1>
     {% for list in list_board %}
+        <h1>
         <a href="{% url 'boardapp:detail_board' pk=list.pk %}">{{ list.Board_title }}</a>
-        <p></p>
+        </h1>
     {% endfor %}
     <hr>
     <a href="{% url 'boardapp:create_board' %}">글쓰기</a>

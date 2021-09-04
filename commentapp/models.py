@@ -11,4 +11,4 @@ class Board_Comment(models.Model):
 
     Comment_line = models.CharField(max_length=50)
 
-    Comment_Time = models.DateField(auto_now_add=True)
+    Comment_Time = models.TimeField(auto_now=True)

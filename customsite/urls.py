@@ -9,6 +9,7 @@ urlpatterns = [
     path('screen/', include('boardapp.urls')),
     path('comment/', include('commentapp.urls')),
     path('chat/', include('chatapp.urls')),
+    path('friend/', include('friendapp.urls')),
 
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
