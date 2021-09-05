@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'commentapp',
     'chatapp',
     'friendapp',
+    'messageapp',
 ]
 
 MIDDLEWARE = [

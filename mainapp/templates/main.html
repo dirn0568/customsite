@@ -16,6 +16,7 @@
             <a href="{% url 'accountapp:login' %}" %}>로그인</a>
         {% else %}
             <a href="{% url 'accountapp:logout' %}" %}>로그아웃</a>
+            <a href="{% url 'messageapp:message_box' pk=request.user.pk %}" %}>메세지함</a>
         {% endif %}
         <a href="{% url 'accountapp:create_user' %}" %}>회원가입</a>
     </h1>

@@ -17,7 +17,7 @@
                     {{ list.username }}
                 </a>
                 {{ list.nickname }}
-                <a href="{% url 'friendapp:create_friend' %}">
+                <a href="{% url 'friendapp:create_friend' word1=request.user word2=list %}">
                     친구추가
                 </a>
             </h2>
