@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from friendapp.models import FriendModel
+from friendapp.models import FriendRequestModel
 
-admin.site.register(FriendModel)
+admin.site.register(FriendRequestModel)

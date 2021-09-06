@@ -17,6 +17,7 @@
         {% else %}
             <a href="{% url 'accountapp:logout' %}" %}>로그아웃</a>
             <a href="{% url 'messageapp:message_box' pk=request.user.pk %}" %}>메세지함</a>
+            <a href="{% url 'friendapp:friend_list' pk=request.user.pk %}">친구목록</a>
         {% endif %}
         <a href="{% url 'accountapp:create_user' %}" %}>회원가입</a>
     </h1>

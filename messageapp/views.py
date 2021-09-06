@@ -1,17 +1,23 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.views.generic import DetailView
 
 from accountapp.models import User
-from friendapp.models import FriendModel
-from messageapp.models import MessageBoxModel
+from friendapp.models import FriendRequestModel
 
 
-def test(request, pk):
-    print(request.user, '리케케드느스유적')
+def friend_request_message(request, pk):
     context = {}
-    testing = FriendModel.objects.filter(B_User=request.user)
-    context['테스팅'] = testing
+    friend_request_message = FriendRequestModel.objects.filter(B_User=request.user)
+    context['friend_request_message'] = friend_request_message
     return render(request, 'message_box.html', context)
+
+def delete_message(request, pk):
+    request_friend_data = FriendRequestModel.objects.filter(pk=pk)
+    for request_friend_delete in request_friend_data:
+        temp_pk = request_friend_delete.B_User.pk
+        request_friend_delete.delete()
+    return redirect('messageapp:message_box', temp_pk)
+
+

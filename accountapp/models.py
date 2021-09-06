@@ -6,4 +6,10 @@ from django.db import models
 class User(AbstractUser):
     nickname = models.CharField(max_length=20, unique=True)
 
+class Friend_List(models.Model):
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend')
+    friend_relation = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_relation')
 
+    class Meta:
+        unique_together = ('friend', 'friend_relation')
+    # unique가 됐는지 안됐는지 모름 일단 됏다고 치고 진행

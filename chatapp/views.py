@@ -1,11 +1,10 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import CreateView
 
 from accountapp.models import User
-from chatapp.forms import TestForm3, TestForm2, TestForm4, ChatForm
-from chatapp.models import TestModel2, TestModel3, TestModel4, ChatModel
+from chatapp.forms import ChatForm
+from chatapp.models import ChatModel
 
 
 def chatview(request, pk):
@@ -37,21 +36,4 @@ def chatview(request, pk):
     context['chat_pk'] = pk
     context['chat_users'] = chat_users_post_list
     return render(request, 'chat.html', context)
-
-
-
-class CreateTestView2(CreateView):
-    model = TestModel2
-    form_class = TestForm2
-    template_name = 'test2.html'
-
-class CreateTestView3(CreateView):
-    model = TestModel3
-    form_class = TestForm3
-    template_name = 'test3.html'
-
-class CreateTestView4(CreateView):
-    model = TestModel4
-    form_class = TestForm4
-    template_name = 'test4.html'
 

@@ -16,5 +16,5 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
 
-    path('test/', views.test, name='test'),
+    path('create_friend/<friend1>/<friend2>/<int:pk>/', views.createfriend, name='createfriend'),
 ]
