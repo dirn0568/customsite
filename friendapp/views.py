@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.views.generic import CreateView
@@ -15,9 +15,26 @@ def createfriendview(request, word1, word2):
             FriendRequestModel(A_User=friend_list, B_User=friend_list2).save()
 
 def detailfriendview(request, pk):
-    test2 = User.objects.filter(pk=pk)
-    for testing2 in test2:
-        test = Friend_List.objects.filter(friend=testing2)
+    User_pk = User.objects.filter(pk=pk)
+    for user_data in User_pk:
+        friend_list = Friend_List.objects.filter(friend=user_data)
     context = {}
-    context['테스트중'] = test
+    context['friend_list'] = friend_list
     return render(request, 'friend_list.html', context)
+
+def deletefriendview(request, user, user_friend):
+    delete_friend1 = User.objects.filter(username=user)
+    delete_friend2 = User.objects.filter(username=user_friend)
+    for delete1 in delete_friend1:
+        for delete2 in delete_friend2:
+            temp_pk = delete1.pk
+            delete_friend3 = Friend_List.objects.filter(friend=delete1, friend_relation=delete2)
+            delete_friend4 = Friend_List.objects.filter(friend=delete2, friend_relation=delete1)
+    for delete3 in delete_friend3:
+        for delete4 in delete_friend4:
+            delete3.delete()
+            delete4.delete()
+    return redirect('friendapp:friend_list', temp_pk)
+
+
+

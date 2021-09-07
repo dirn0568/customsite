@@ -12,4 +12,3 @@ class Friend_List(models.Model):
 
     class Meta:
         unique_together = ('friend', 'friend_relation')
-    # unique가 됐는지 안됐는지 모름 일단 됏다고 치고 진행

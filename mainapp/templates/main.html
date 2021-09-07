@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        body {
+            background-image:url("{% static 'main_bg2.png' %}");
+            background-size:100%
+        }
+    </style>
 </head>
 <body>
     <img src="{% static 'title.png' %}" alt="" width="300" height="300" style="border-radius: 20px;">
@@ -16,6 +24,7 @@
             <a href="{% url 'accountapp:login' %}" %}>로그인</a>
         {% else %}
             <a href="{% url 'accountapp:logout' %}" %}>로그아웃</a>
+            <a href="{% url 'accountapp:detail_user' pk=request.user.pk %}">프로필</a>
             <a href="{% url 'messageapp:message_box' pk=request.user.pk %}" %}>메세지함</a>
             <a href="{% url 'friendapp:friend_list' pk=request.user.pk %}">친구목록</a>
         {% endif %}

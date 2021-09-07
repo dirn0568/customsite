@@ -35,7 +35,7 @@ class Delete_User(DeleteView):
     model = User
     context_object_name = 'target_user'
     template_name = 'delete_user.html'
-    success_url = reverse_lazy('accountapp:test')
+    success_url = reverse_lazy('mainapp:main')
 
 def createfriend(request, friend1, friend2, pk):
     friend_data1 = User.objects.filter(username=friend1)

@@ -26,7 +26,11 @@
         <p></p>
         {{ list.Board_text }}
         <p></p>
-        {{ list.pk }} pk임
+        <a href="{% url 'boardapp:update_board' pk=list.pk %}">글수정</a>
+        <a href="javascript:delete_check('{% url 'boardapp:delete_board' pk=list.pk %}')">글삭제</a>
+    {% endfor %}
+    <hr>
+    {% for list in board_target %}
         <form action="{% url 'boardapp:detail_board' pk=list.pk %}" method="post">
             {% csrf_token %}
             {{ form }}
@@ -41,7 +45,7 @@
         <a href="{% url 'commentapp:update_comment' pk=list.pk %}">
             수정
         </a>
-        <a href="javascript:delete_check('{% url 'commentapp:delete-comment' pk=list.pk %}')">X</a>
+        <a href="javascript:delete_check('{% url 'commentapp:delete_comment' pk=list.pk %}')">X</a>
         <p></p>
     {% endfor %}
 </body>
