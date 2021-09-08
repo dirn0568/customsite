@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
-
 from boardapp.forms import BoardForm, Update_BoardForm
 from boardapp.models import BoardModel
 from commentapp.forms import CommentForm
@@ -47,6 +46,7 @@ class DetailBoardView(DetailView, CreateView):
 
     def get_success_url(self):
         return reverse('boardapp:detail_board', kwargs={'pk': self.get_object().pk})
+
 
 def deleteboardview(request, pk):
     board_list = BoardModel.objects.filter(pk=pk)

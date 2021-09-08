@@ -16,6 +16,9 @@ class Create_User(CreateView):
     form_class = Create_User_Form
     template_name = 'create_user.html'
 
+    def get_success_url(self):
+        return reverse('accountapp:login')
+
 class Detail_User(DetailView):
     model = User
     context_object_name = 'target_user'

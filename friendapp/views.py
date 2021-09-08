@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -13,14 +14,18 @@ def createfriendview(request, word1, word2):
     for friend_list in friend1:
         for friend_list2 in friend2:
             FriendRequestModel(A_User=friend_list, B_User=friend_list2).save()
+    return redirect('mainapp:search_information')
 
 def detailfriendview(request, pk):
-    User_pk = User.objects.filter(pk=pk)
-    for user_data in User_pk:
-        friend_list = Friend_List.objects.filter(friend=user_data)
-    context = {}
-    context['friend_list'] = friend_list
-    return render(request, 'friend_list.html', context)
+    if request.user.pk == pk:
+        User_pk = User.objects.filter(pk=pk)
+        for user_data in User_pk:
+            friend_list = Friend_List.objects.filter(friend=user_data)
+        context = {}
+        context['friend_list'] = friend_list
+        return render(request, 'friend_list.html', context)
+    else:
+        raise Http404("잘못된 접근입니다")
 
 def deletefriendview(request, user, user_friend):
     delete_friend1 = User.objects.filter(username=user)

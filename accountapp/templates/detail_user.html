@@ -7,7 +7,9 @@
 <body>
     {{ target_user.username }}
     {{ target_user.nickname }}
-    <a href="{% url 'accountapp:update_user' pk=target_user.pk %}">정보 변경</a>
-    <a href="{% url 'accountapp:delete_user' pk=target_user.pk %}">삭제</a>
+    {% if request.user == target_user %}
+        <a href="{% url 'accountapp:update_user' pk=target_user.pk %}">정보 변경</a>
+        <a href="{% url 'accountapp:delete_user' pk=target_user.pk %}">삭제</a>
+    {% endif %}
 </body>
 </html>

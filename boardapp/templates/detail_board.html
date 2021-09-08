@@ -26,8 +26,10 @@
         <p></p>
         {{ list.Board_text }}
         <p></p>
-        <a href="{% url 'boardapp:update_board' pk=list.pk %}">글수정</a>
-        <a href="javascript:delete_check('{% url 'boardapp:delete_board' pk=list.pk %}')">글삭제</a>
+        {% if request.user == list.Board_Owner %}
+            <a href="{% url 'boardapp:update_board' pk=list.pk %}">글수정</a>
+            <a href="javascript:delete_check('{% url 'boardapp:delete_board' pk=list.pk %}')">글삭제</a>
+        {% endif %}
     {% endfor %}
     <hr>
     {% for list in board_target %}
@@ -42,10 +44,12 @@
         {{ list.Comment_line }}
         {{ list.Comment_User.nickname }}
         {{ list.Comment_Time }}
-        <a href="{% url 'commentapp:update_comment' pk=list.pk %}">
-            수정
-        </a>
-        <a href="javascript:delete_check('{% url 'commentapp:delete_comment' pk=list.pk %}')">X</a>
+        {% if request.user == list.Comment_User %}
+            <a href="{% url 'commentapp:update_comment' pk=list.pk %}">
+                수정
+            </a>
+            <a href="javascript:delete_check('{% url 'commentapp:delete_comment' pk=list.pk %}')">X</a>
+        {% endif %}
         <p></p>
     {% endfor %}
 </body>

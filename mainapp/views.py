@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.template.context_processors import request
 from django.views.generic import ListView, RedirectView, TemplateView, FormView
 
+from accountapp.decorators import testing1234
 from accountapp.models import User
 from mainapp.forms import SearchUserForm
 
@@ -15,6 +16,7 @@ class MainView(TemplateView):
     def get(self, request):
         print(self.request.user)
         return render(request, 'main.html')
+
 
 class SearchUserView(FormView):
     form_class = SearchUserForm
