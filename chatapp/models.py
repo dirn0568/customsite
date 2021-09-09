@@ -1,7 +1,10 @@
+from django.contrib.auth import forms
 from django.db import models
 
 # Create your models here.
 from accountapp.models import User
+
+
 
 class ChatModel(models.Model):
     send_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='send_user')
@@ -12,4 +15,5 @@ class ChatModel(models.Model):
 
     chat_time = models.DateTimeField(auto_now=True)
 
-# class test(models.Model)
+# class test(models.Model):
+#     comment = forms.CharField(widget=forms.Textarea(attrs={"rows": 5, "cols": 20}))

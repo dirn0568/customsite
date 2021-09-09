@@ -7,15 +7,21 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
+        html, body {
+            height:100%;
+        }
         body {
-            background-image:url("{% static 'main_bg2.png' %}");
-            background-size:100%
+            background-image:url("{% static 'main_bg3.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
         }
     </style>
 </head>
-<body>
+<body style="height: 100%">
+    <p></p>
     <img src="{% static 'title.png' %}" alt="" width="300" height="300" style="border-radius: 20px;">
     <img src="{% static 'title2.png' %}" alt="" width="300" height="300" style="border-radius: 20px;">
+    <text style="font-size:600%">아무거나 사이트</text>
     <p></p>
     <h1>
         <a href="{% url 'boardapp:list_board' %}">게시판</a>
@@ -30,6 +36,9 @@
         {% endif %}
         <a href="{% url 'accountapp:create_user' %}" %}>회원가입</a>
     </h1>
+
+
+
 <!--    <a href='https://.pngtree.com/so/편지'>편지 png에서 .pngtree.com/</a>-->
 </body>
 </html>
