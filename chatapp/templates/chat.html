@@ -23,12 +23,13 @@
                 <div align="right">
                     {{ delete_queryset.send_user }}
                     <p></p>
-                    <div class="Test_Box">
+                    <div class="chat_box">
                         {{ delete_queryset.chat_line }}
                     </div>
                     {% if delete_queryset.chat_img %}
                         <p></p>
-                        <video src="{{ delete_queryset.chat_img.url }}" width='300' height='300' controls None style="border-radius: 20px;" poster="{{ delete_queryset.chat_img.url }}">
+                        {{ delete_queryset.chat_img.file.type }}
+                        <video src="{{ delete_queryset.chat_img.url }}" width='300' height='300' controls style="border-radius: 20px;" poster="{{ delete_queryset.chat_img.url }}">
                         {{ delete_queryset.chat_time }}
                         <p></p>
                     {% else %}
@@ -40,11 +41,12 @@
                 <div align="left">
                     {{ delete_queryset.send_user }}
                     <p></p>
-                    <div class="Test_Box">
+                    <div class="chat_box">
                         {{ delete_queryset.chat_line }}
                     </div>
                     {% if delete_queryset.chat_img %}
                         <p></p>
+                        {{ delete_queryset.chat_img.file.type }}
                         <video src="{{ delete_queryset.chat_img.url }}" width='300' height='300' controls None style="border-radius: 20px;" poster="{{ delete_queryset.chat_img.url }}">
                         {{ delete_queryset.chat_time }}
                         <p></p>

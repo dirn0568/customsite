@@ -5,7 +5,7 @@ from chatapp.models import ChatModel
 
 
 class ChatForm(forms.ModelForm):
-    chat_line = forms.CharField(widget=forms.Textarea(attrs={"rows":5, "cols":20}))
+    chat_line = forms.CharField(widget=forms.Textarea(attrs={"cols":20, "rows":5, "min_length":0}))
 
     class Meta:
         model = ChatModel
