@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
     {% load static %}
+    <script type="text/javascript">
+        function run(a) {
+            console.log(a)
+            var test1 = a.split("/");
+            console.log(test1)
+            var test2 = test1.length;
+            console.log(test2)
+            var test3 = test1[test2-1];
+            console.log(test3);
+            var test4 = test3.split(".");
+            console.log(test4);
+            var test5 = test4[0];
+            console.log(test5);
+            var test6 = test4[1];
+            console.log(test6);
+        }
+    </script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         body {
@@ -28,8 +45,7 @@
                     </div>
                     {% if delete_queryset.chat_img %}
                         <p></p>
-                        {{ delete_queryset.chat_img.file.type }}
-                        <video src="{{ delete_queryset.chat_img.url }}" width='300' height='300' controls style="border-radius: 20px;" poster="{{ delete_queryset.chat_img.url }}">
+                        <img src="{{ delete_queryset.chat_img.url }}" width='300' height='300' controls style="border-radius: 20px;" poster="{{ delete_queryset.chat_img.url }}">
                         {{ delete_queryset.chat_time }}
                         <p></p>
                     {% else %}
@@ -46,10 +62,9 @@
                     </div>
                     {% if delete_queryset.chat_img %}
                         <p></p>
-                        {{ delete_queryset.chat_img.file.type }}
-                        <video src="{{ delete_queryset.chat_img.url }}" width='300' height='300' controls None style="border-radius: 20px;" poster="{{ delete_queryset.chat_img.url }}">
+                        <button onclick="run('{{ delete_queryset.chat_img.url }}')">button</button>
+                        <source src="{{ delete_queryset.chat_img.url }}" width='300' height='300' controls None style="border-radius: 20px;" poster="{{ delete_queryset.chat_img.url }}">
                         {{ delete_queryset.chat_time }}
-                        <p></p>
                     {% else %}
                         {{ delete_queryset.chat_time }}
                         <p></p>
