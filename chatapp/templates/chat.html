@@ -28,8 +28,16 @@
                     </div>
                     {% if delete_queryset.chat_img %}
                         <p></p>
-                        {{ delete_queryset.chat_img.url }}
-                        <input hidden id="chat_file2" value="{{ delete_queryset.chat_img.url }}">
+                        {% if delete_queryset.chat_img_ext == '.PNG' or delete_queryset.chat_img_ext == '.GIF' or delete_queryset.chat_img_ext == '.jpg' %}
+                            <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {% if delete_queryset.chat_img_ext == '.mp4' or delete_queryset.chat_img_ext == '.webm' or delete_queryset.chat_img_ext == '.avi' or delete_queryset.chat_img_ext == '.wmv' %}
+                            <video src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {% if delete_queryset.chat_img_ext == '.mp3' or delete_queryset.chat_img_ext == '.flac' or delete_queryset.chat_img_ext == '.wav' %}
+                            <audio src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        <p></p>
                         {{ delete_queryset.chat_time }}
                         <p></p>
                     {% else %}
@@ -46,8 +54,15 @@
                     </div>
                     {% if delete_queryset.chat_img %}
                         <p></p>
-                        {{ delete_queryset.chat_img.url }}
-                        <input id="chat_file" value="{{ delete_queryset.chat_img.url }}">
+                        {% if delete_queryset.chat_img_ext == '.PNG' or delete_queryset.chat_img_ext == '.GIF' or delete_queryset.chat_img_ext == '.jpg' %}
+                            <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {% if delete_queryset.chat_img_ext == '.mp4' or delete_queryset.chat_img_ext == '.webm' or delete_queryset.chat_img_ext == '.avi' or delete_queryset.chat_img_ext == '.wmv' %}
+                            <video src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {% if delete_queryset.chat_img_ext == '.mp3' or delete_queryset.chat_img_ext == '.flac' or delete_queryset.chat_img_ext == '.wav' %}
+                            <audio src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
                         {{ delete_queryset.chat_time }}
                     {% else %}
                         {{ delete_queryset.chat_time }}

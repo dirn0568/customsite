@@ -1,6 +1,6 @@
-from django.shortcuts import render
+import os
 
-# Create your views here.
+from django.shortcuts import render
 
 from accountapp.models import User
 from chatapp.forms import ChatForm
@@ -12,6 +12,9 @@ def chatview(request, pk):
         form = ChatForm(request.POST, request.FILES)
         if form.is_valid():
             temp_form = form.save(commit=False)
+            test_temp = str(temp_form.chat_img)
+            name, ext = os.path.splitext(test_temp)
+            temp_form.chat_img_ext = ext
             temp_form.send_user = request.user
             receive = User.objects.filter(pk=pk)
             for list in receive:
@@ -31,7 +34,6 @@ def chatview(request, pk):
     chat_users_list.sort()
     for i in range(len(chat_users_list)):
         chat_users_post_list.append(ChatModel.objects.filter(pk=chat_users_list[i]))
-    # print(chat_users_post_list, '어떻게 나오냐3')
     context['chat_form'] = ChatForm
     context['chat_pk'] = pk
     context['chat_users'] = chat_users_post_list

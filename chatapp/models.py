@@ -12,6 +12,7 @@ class ChatModel(models.Model):
 
     chat_line = models.CharField(max_length=300, null=True, blank=True)
     chat_img = models.FileField(upload_to='chat_file/', null=True, blank=True)
+    chat_img_ext = models.CharField(max_length=50, null=True, blank=True)
 
     chat_time = models.DateTimeField(auto_now=True)
 
