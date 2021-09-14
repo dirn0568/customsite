@@ -5,7 +5,7 @@
     <title>Title</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+    <script src="{% static 'js/main.js' %}"></script>
     <style>
         html, body {
             height:100%;
@@ -24,21 +24,23 @@
     <text style="font-size:600%">아무거나 사이트</text>
     <p></p>
     <h1>
-        <a href="{% url 'boardapp:list_board' %}">게시판</a>
-        <a href="{% url 'mainapp:search_information' %}">회원검색</a>
+        <a href="#" onclick="board_list_js(board_list_html)">게시판</a>
+        <a href="#" onclick="search_js(search_html)">회원검색</a>
+        <input hidden id="board_list_html" value="{% url 'boardapp:list_board' %}">
+        <input hidden id="search_html" value="{% url 'mainapp:search_information' %}">
         {% if not user.is_authenticated %}
-            <a href="{% url 'accountapp:login' %}" %}>로그인</a>
+            <a href="{% url 'accountapp:login' %}">로그인</a>
         {% else %}
-            <a href="{% url 'accountapp:logout' %}" %}>로그아웃</a>
-            <a href="{% url 'accountapp:detail_user' pk=request.user.pk %}">프로필</a>
-            <a href="{% url 'messageapp:message_box' pk=request.user.pk %}" %}>메세지함</a>
-            <a href="{% url 'friendapp:friend_list' pk=request.user.pk %}">친구목록</a>
+            <a href="{% url 'accountapp:logout' %}">로그아웃</a>
+            <a href="#" onclick="account_detail_js(account_detail_html)">프로필</a>
+            <a href="#" onclick="message_list_js(message_list_html)">메세지함</a>
+            <a href="#" onclick="friend_list_js(friend_list_html)">친구목록</a>
+            <input hidden id="account_detail_html" value="{% url 'accountapp:detail_user' pk=request.user.pk %}">
+            <input hidden id="message_list_html" value="{% url 'messageapp:message_box' pk=request.user.pk %}">
+            <input hidden id="friend_list_html" value="{% url 'friendapp:friend_list' pk=request.user.pk %}">
         {% endif %}
-        <a href="{% url 'accountapp:create_user' %}" %}>회원가입</a>
+        <a href="{% url 'accountapp:create_user' %}">회원가입</a>
     </h1>
-
-
-
 <!--    <a href='https://.pngtree.com/so/편지'>편지 png에서 .pngtree.com/</a>-->
 </body>
 </html>

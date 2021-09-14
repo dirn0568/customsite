@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <script src="{% static 'js/board.js' %}"></script>
     <style type="text/css">
     body{
         background-color:#E4F7BA;
@@ -14,10 +16,12 @@
     <h1>게시판</h1>
     {% for list in list_board %}
         <h1>
-        <a href="{% url 'boardapp:detail_board' pk=list.pk %}">{{ list.Board_title }}</a>
+        <a href="#" onclick="list_board_js(list_board_html)">{{ list.Board_title }}</a>
+        <input hidden id="list_board_html" value="{% url 'boardapp:detail_board' pk=list.pk %}">
         </h1>
     {% endfor %}
     <hr>
-    <a href="{% url 'boardapp:create_board' %}">글쓰기</a>
+    <a href="#" onclick="create_board_js(create_board_html)">글쓰기</a>
+    <input hidden id="create_board_html" value="{% url 'boardapp:create_board' %}">
 </body>
 </html>
