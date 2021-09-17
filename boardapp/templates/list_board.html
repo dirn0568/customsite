@@ -16,8 +16,8 @@
     <h1>게시판</h1>
     {% for list in list_board %}
         <h1>
-        <a href="#" onclick="list_board_js(list_board_html)">{{ list.Board_title }}</a>
-        <input hidden id="list_board_html" value="{% url 'boardapp:detail_board' pk=list.pk %}">
+            <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">{{ list.Board_title }}</a>
+            <input hidden id="{{ list.Board_title }}{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">
         </h1>
     {% endfor %}
     <hr>

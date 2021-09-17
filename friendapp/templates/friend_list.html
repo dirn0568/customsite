@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <script src="{% static 'js/friend_chat.js' %}"></script>
     <script language="javascript">
         function delete_check(url){
             var answer;
@@ -18,9 +20,8 @@
     <hr>
     {% for list in friend_list %}
         {{ list.friend_relation }}
-        <a href="{% url 'chatapp:chat' pk=list.friend_relation.pk %}">
-            대화하기
-        </a>
+        <a href="#" onclick="friend_chat_js({{ list.friend_relation }}{{ list.pk }})">대화하기</a>
+        <input hidden id="{{ list.friend_relation }}{{ list.pk }}" value="{% url 'chatapp:chat' pk=list.friend_relation.pk %}">
         <a href="javascript:delete_check('{% url 'friendapp:delete_friend' user=list.friend user_friend=list.friend_relation %}')">
             친구 삭제
         </a>
