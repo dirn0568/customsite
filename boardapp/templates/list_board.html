@@ -6,22 +6,49 @@
     {% load static %}
     <script src="{% static 'js/board.js' %}"></script>
     <style type="text/css">
+    a { text-decoration:none }
     body{
         background-color:#E4F7BA;
     }
+    .box{
+        width: 500px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+    }
+    .board {
+        margin-top: 50px;
+        margin-right: 100px;
+        margin-bottom: 100px;
+        margin-left: 150px;
+        background-color:#997000;
+        width: 100rem;
+        height: 50rem;
+    }
     </style>
 </head>
-</head>
 <body>
-    <h1>게시판</h1>
-    {% for list in list_board %}
-        <h1>
-            <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">{{ list.Board_title }}</a>
+    <h1 style="text-align:center">게시판</h1>
+    <div class="board">
+        {% for list in list_board %}
+            <h1>
+                <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">
+                    {{ list.Board_title }}
+                    <div style="float:right">
+                        {{ list.Board_Owner }}
+                    </div>
+                    <div class="box" style="float:right">
+                        &emsp;{{ list.Board_text }}
+                    </div>
+                </a>
+            </h1>
             <input hidden id="{{ list.Board_title }}{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">
-        </h1>
-    {% endfor %}
+        {% endfor %}
+    </div>
     <hr>
     <a href="#" onclick="create_board_js(create_board_html)">글쓰기</a>
     <input hidden id="create_board_html" value="{% url 'boardapp:create_board' %}">
+</table>
 </body>
 </html>
