@@ -10,45 +10,115 @@
     body{
         background-color:#E4F7BA;
     }
-    .box{
+    .box3{
         width: 500px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
         display: block;
     }
-    .board {
+    .box{
+        white-space: nowrap;
+    }
+    .box2{
+        width: 200px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+    }
+    .board{
         margin-top: 50px;
-        margin-right: 100px;
         margin-bottom: 100px;
-        margin-left: 150px;
         background-color:#997000;
-        width: 100rem;
+        width: 150rem;
         height: 50rem;
     }
     </style>
 </head>
 <body>
     <h1 style="text-align:center">게시판</h1>
-    <div class="board">
-        {% for list in list_board %}
+        <div class="board">
             <h1>
-                <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">
-                    {{ list.Board_title }}
-                    <div style="float:right">
-                        {{ list.Board_Owner }}
-                    </div>
-                    <div class="box" style="float:right">
-                        &emsp;{{ list.Board_text }}
-                    </div>
-                </a>
+               &nbsp;번호
+                <div class="box" style="float:right">
+                    작성시간&emsp;
+                </div>
+                <div class="box3" style="float:right">
+                    &emsp;작성자
+                </div>
+                <div class="box3" style="float:right">
+                    &emsp;작성글
+                </div>
+                <div class="box3" style="float:right">
+                    &emsp;제목
+                </div>
             </h1>
-            <input hidden id="{{ list.Board_title }}{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">
-        {% endfor %}
-    </div>
-    <hr>
+
+            <hr>
+            {% for list in list_board %}
+                <h1>
+                    <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">
+                        &emsp;{{ list.pk }}
+                        <div style="float:right">
+                            {{ list.Board_Time }}
+                        </div>
+                        <div class="box3" style="float:right">
+                            {{ list.Board_Owner.nickname }}
+                        </div>
+                        <div class="box3" style="float:right">
+                            {{ list.Board_text }}
+                        </div>
+                        <div class="box3" style="float:right">
+                            {{ list.Board_title }}
+                        </div>
+                    </a>
+                </h1>
+                <input hidden id="{{ list.Board_title }}{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">
+            {% endfor %}
+        </div>
+
+<!--        {% for list in list_board %}-->
+<!--            <h1>-->
+<!--                <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">-->
+<!--                    <span>-->
+<!--                        {{ list.pk }}-->
+<!--                    </span>-->
+<!--                    <span>-->
+<!--                        {{ list.Board_title }}-->
+<!--                    </span>-->
+<!--                    <span>-->
+<!--                        {{ list.Board_text }}-->
+<!--                    </span>-->
+<!--                    <span>-->
+<!--                        {{ list.Board_Owner.nickname }}-->
+<!--                    </span>-->
+<!--                    <span>-->
+<!--                        {{ list.Board_Time }}-->
+<!--                    </span>-->
+<!--                </a>-->
+<!--            </h1>-->
+<!--            <input hidden id="{{ list.Board_title }}{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">-->
+<!--        {% endfor %}-->
+<!--    <hr>-->
+
+<!--        <table border="5">-->
+<!--            <th>번호</th>-->
+<!--            <th>제목</th>-->
+<!--            <th>작성글</th>-->
+<!--            <th>작성자</th>-->
+<!--            <th>작성날짜</th>-->
+<!--            {% for list in list_board %}-->
+<!--                <tr class="box">-->
+<!--                    <td>{{ list.pk }}</td>-->
+<!--                    <td>{{ list.Board_title }}</td>-->
+<!--                    <td>{{ list.Board_text }}</td>-->
+<!--                    <td>{{ list.Board_Owner }}</td>-->
+<!--                    <td>{{ list.Board_Time }}</td>-->
+<!--                </tr>-->
+<!--            {% endfor %}-->
+<!--        </table>-->
     <a href="#" onclick="create_board_js(create_board_html)">글쓰기</a>
     <input hidden id="create_board_html" value="{% url 'boardapp:create_board' %}">
-</table>
 </body>
 </html>
