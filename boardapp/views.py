@@ -1,3 +1,4 @@
+from django.core import paginator
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -25,16 +26,8 @@ class ListBoardView(ListView):
     model = BoardModel
     context_object_name = 'list_board'
     template_name = 'list_board.html'
-    print(context_object_name)
+    paginate_by = 8
 
-    def get_context_data(self, **kwargs):
-        context = super(ListBoardView, self).get_context_data(**kwargs)
-        board_len = []
-        for i in range(len(context)):
-            board_len.append(i+1)
-        print(board_len)
-        context['board_len'] = board_len
-        return context
 
 class DetailBoardView(DetailView, CreateView):
     model = BoardModel

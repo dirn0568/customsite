@@ -21,7 +21,7 @@
         white-space: nowrap;
     }
     .box2{
-        width: 200px;
+        width: 550px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -31,7 +31,7 @@
         margin-top: 50px;
         margin-bottom: 100px;
         background-color:#997000;
-        width: 150rem;
+        width: 125rem;
         height: 50rem;
     }
     </style>
@@ -42,15 +42,15 @@
             <h1>
                &nbsp;번호
                 <div class="box" style="float:right">
-                    작성시간&emsp;
+                    작성시간&emsp;&emsp;&emsp;&emsp;
                 </div>
-                <div class="box3" style="float:right">
-                    &emsp;작성자
+                <div class="box2" style="float:right">
+                    작성자
                 </div>
-                <div class="box3" style="float:right">
-                    &emsp;작성글
+                <div class="box2" style="float:right">
+                    작성글&emsp;&emsp;
                 </div>
-                <div class="box3" style="float:right">
+                <div class="box2" style="float:right">
                     &emsp;제목
                 </div>
             </h1>
@@ -59,65 +59,58 @@
             {% for list in list_board %}
                 <h1>
                     <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">
-                        &emsp;{{ list.pk }}
+                        &nbsp;{{ list.pk }}
                         <div style="float:right">
+                            &emsp;{{ list.Board_date }}
                             {{ list.Board_Time }}
                         </div>
                         <div class="box3" style="float:right">
-                            {{ list.Board_Owner.nickname }}
+                            &emsp;{{ list.Board_Owner.nickname }}
                         </div>
                         <div class="box3" style="float:right">
-                            {{ list.Board_text }}
+                            &emsp;{{ list.Board_text }}
                         </div>
                         <div class="box3" style="float:right">
-                            {{ list.Board_title }}
+                            &emsp;{{ list.Board_title }}
                         </div>
                     </a>
                 </h1>
                 <input hidden id="{{ list.Board_title }}{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">
+            <hr>
             {% endfor %}
+
+            <p></p>
+            <div style="text-align: center; margin: 1rem 0;">
+              {% if page_obj.has_previous %}
+              <a href="?page={{ page_obj.previous_page_number }}"
+                 class="btn btn-secondary rounded-pill">
+                {{ page_obj.previous_page_number }}
+              </a>
+              {% endif %}
+              <a href="?page={{ page_obj.number }}"
+                 class="btn btn-secondary rounded-pill active">
+                  {{ page_obj.number }}
+              </a>
+              {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}"
+                 class="btn btn-secondary rounded-pill">
+                  {{ page_obj.next_page_number }}
+              </a>
+              {% endif %}
+            </div>
+            <div>
+                {% for page in page_obj.paginator.page_range %}
+                    {% if (page_obj.number-5) < page < (page_obj.number+5) %}
+                        <a href="?page={{ page }}"
+                         class="btn btn-secondary rounded-pill">
+                          {{ page }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
         </div>
-
-<!--        {% for list in list_board %}-->
-<!--            <h1>-->
-<!--                <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">-->
-<!--                    <span>-->
-<!--                        {{ list.pk }}-->
-<!--                    </span>-->
-<!--                    <span>-->
-<!--                        {{ list.Board_title }}-->
-<!--                    </span>-->
-<!--                    <span>-->
-<!--                        {{ list.Board_text }}-->
-<!--                    </span>-->
-<!--                    <span>-->
-<!--                        {{ list.Board_Owner.nickname }}-->
-<!--                    </span>-->
-<!--                    <span>-->
-<!--                        {{ list.Board_Time }}-->
-<!--                    </span>-->
-<!--                </a>-->
-<!--            </h1>-->
-<!--            <input hidden id="{{ list.Board_title }}{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">-->
-<!--        {% endfor %}-->
-<!--    <hr>-->
-
-<!--        <table border="5">-->
-<!--            <th>번호</th>-->
-<!--            <th>제목</th>-->
-<!--            <th>작성글</th>-->
-<!--            <th>작성자</th>-->
-<!--            <th>작성날짜</th>-->
-<!--            {% for list in list_board %}-->
-<!--                <tr class="box">-->
-<!--                    <td>{{ list.pk }}</td>-->
-<!--                    <td>{{ list.Board_title }}</td>-->
-<!--                    <td>{{ list.Board_text }}</td>-->
-<!--                    <td>{{ list.Board_Owner }}</td>-->
-<!--                    <td>{{ list.Board_Time }}</td>-->
-<!--                </tr>-->
-<!--            {% endfor %}-->
-<!--        </table>-->
+    <hr>
     <a href="#" onclick="create_board_js(create_board_html)">글쓰기</a>
     <input hidden id="create_board_html" value="{% url 'boardapp:create_board' %}">
 </body>
