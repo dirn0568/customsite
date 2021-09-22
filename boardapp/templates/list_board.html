@@ -100,14 +100,17 @@
             </div>
             <div>
                 {% for page in page_obj.paginator.page_range %}
-                    {% if (page_obj.number-5) < page < (page_obj.number+5) %}
-                        <a href="?page={{ page }}"
-                         class="btn btn-secondary rounded-pill">
-                          {{ page }}
-                        </a>
-                    {% endif %}
+                    <a href="?page={{ page }}"
+                       class="btn btn-secondary rounded-pill">
+                        {{ page }}
+                    </a>
                 {% endfor %}
-
+                {{ page_obj.paginator.num_pages }}
+            </div>
+            <div>
+                {% for i in "z"|rjust:"5" %}
+                     {{ forloop.counter }}
+                {% endfor %}
             </div>
         </div>
     <hr>
@@ -115,3 +118,25 @@
     <input hidden id="create_board_html" value="{% url 'boardapp:create_board' %}">
 </body>
 </html>
+
+<!--<div>-->
+<!--                {% for page in page_obj.paginator.page_range %}-->
+<!--                    <input value="{{ page_obj.number }}" hidden="hidden" id="hjj" />-->
+<!--                    <script>-->
+<!--                        zerotwo = document.getElementById('hjj').value-->
+<!--                        zero = zerotwo-5;-->
+<!--                        two = zerotwo-5+10;-->
+<!--                        three = zerotwo-1+3;-->
+<!--                        document.test123.value = zero-->
+<!--                        document.test456.value = three-->
+<!--                    </script>-->
+<!--                    <div name="test123" value=""></div>-->
+<!--                    <div name="test456" value="">-->
+<!--                            <a href="?page={{ page }}"-->
+<!--                               class="btn btn-secondary rounded-pill">-->
+<!--                                {{ page }}-->
+<!--                            </a>-->
+<!--                    </div>-->
+<!--                {% endfor %}-->
+<!--                {{ page_obj.end_index }}-->
+<!--            </div>-->
