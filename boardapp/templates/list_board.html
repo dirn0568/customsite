@@ -61,7 +61,7 @@
                     <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">
                         &nbsp;{{ list.pk }}
                         <div style="float:right">
-                            &emsp;{{ list.Board_date }}
+                            &emsp;{{ list.board_list2.Board_date }}
                             {{ list.Board_Time }}
                         </div>
                         <div class="box3" style="float:right">
@@ -100,15 +100,17 @@
             </div>
             <div>
                 {% for page in page_obj.paginator.page_range %}
-                    <a href="?page={{ page }}"
-                       class="btn btn-secondary rounded-pill">
-                        {{ page }}
-                    </a>
+                    {% if page == page_obj.number %}
+                        <a href="?page={{ page }}"
+                           class="btn btn-secondary rounded-pill">
+                            {{ page }}
+                        </a>
+                    {% endif %}
                 {% endfor %}
                 {{ page_obj.paginator.num_pages }}
             </div>
             <div>
-                {% for i in "z"|rjust:"5" %}
+                {% for i in "z+15"|rjust:"5" %}
                      {{ forloop.counter }}
                 {% endfor %}
             </div>

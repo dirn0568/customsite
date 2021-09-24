@@ -28,6 +28,15 @@ class ListBoardView(ListView):
     template_name = 'list_board.html'
     paginate_by = 8
 
+    def get_context_data(self, *, object_list=None, object_list2=None, **kwargs):
+        board_list = []
+        board_list2 = []
+        for list in self.object_list:
+            print(list.Board_date)
+            board_list.insert(0, list)
+            board_list2.insert(0, list.Board_date)
+        return super().get_context_data(object_list=board_list, object_list2=board_list2, **kwargs)
+
 
 class DetailBoardView(DetailView, CreateView):
     model = BoardModel
