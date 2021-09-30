@@ -9,6 +9,7 @@ from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from accountapp.forms import Update_User_Form, Create_User_Form
 from friendapp.models import FriendRequestModel
+from profileapp.models import User_Profile
 
 
 class Create_User(CreateView):
@@ -23,6 +24,29 @@ class Detail_User(DetailView):
     model = User
     context_object_name = 'target_user'
     template_name = 'detail_user.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(Detail_User, self).get_context_data(**kwargs)
+        print(self.object.pk, '이거 pk 아닌가????????????????')
+        temp_user = User.objects.filter(pk=self.object.pk)
+        for temp in temp_user:
+            user = temp
+        temp_profile = User_Profile.objects.filter(profile=user)
+        for temp in temp_profile:
+            profile = temp
+        context['profile'] = profile
+        return context
+        # profile_list = []
+        # temp_user = User.objects.filter(pk=self.request.user.pk)
+        # for temp in temp_user:
+        #     temp_profile = User_Profile.objects.filter(profile=temp)
+        # print(temp_profile)
+        # for list in temp_profile:
+        #     profile_list.append(list)
+        # print(profile_list, '33333333333333333333333')
+        # print(self.object, '444444444444444444444444444444')
+        # return super().get_context_data(object_list=profile_list, **kwargs)
+
 
 class Update_User(UpdateView):
     model = User

@@ -48,12 +48,15 @@ class Delete_Profile_View(DeleteView):
 
 def create_profile(request, pk):
     if request.method == "POST":
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES)
+        print(request.POST,'이거거거거거거거거거거거거거')
+        print(form, '이건 무냐냐냐냐냐냐냐냐')
         if form.is_valid():
             temp_form = form.save(commit=False)
-            temp_instance =  User.objects.filter(pk=pk)
+            temp_instance = User.objects.filter(pk=pk)
             for temp in temp_instance:
                 temp_form.profile = temp
+            print(temp_form.profile_img, 'form이 어떻게 생겼냐냐냐냐냐냐냐냐냐냐')
             temp_form.save()
             return redirect('accountapp:detail_user', pk)
     context = {}

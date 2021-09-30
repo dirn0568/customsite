@@ -6,10 +6,18 @@
 </head>
 <body>
     {{ target_user.username }}
+    <p></p>
     {{ target_user.nickname }}
+    <p></p>
     {% if request.user == target_user %}
         <a href="{% url 'accountapp:update_user' pk=target_user.pk %}">정보 변경</a>
         <a href="{% url 'accountapp:delete_user' pk=target_user.pk %}">삭제</a>
+        <p></p>
     {% endif %}
+    <a href="{% url 'profileapp:create_profile' pk=target_user.pk %}">프로필생성</a>
+    <p></p>
+    {{ profile.profile_text }}
+    <p></p>
+    <img src="{{ profile.profile_img.url }}" alt="" width="300" height="300" style="border-radius: 20px;">
 </body>
 </html>

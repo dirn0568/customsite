@@ -28,14 +28,15 @@ class ListBoardView(ListView):
     template_name = 'list_board.html'
     paginate_by = 8
 
-    def get_context_data(self, *, object_list=None, object_list2=None, **kwargs):
+    # def get_paginator(self, queryset, per_page, orphans=0,
+    #                   allow_empty_first_page=True, **kwargs):
+
+    def get_context_data(self, *, object_list=None, **kwargs):
         board_list = []
-        board_list2 = []
         for list in self.object_list:
             print(list.Board_date)
             board_list.insert(0, list)
-            board_list2.insert(0, list.Board_date)
-        return super().get_context_data(object_list=board_list, object_list2=board_list2, **kwargs)
+        return super().get_context_data(object_list=board_list, **kwargs)
 
 
 class DetailBoardView(DetailView, CreateView):
