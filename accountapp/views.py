@@ -27,13 +27,15 @@ class Detail_User(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(Detail_User, self).get_context_data(**kwargs)
-        print(self.object.pk, '이거 pk 아닌가????????????????')
         temp_user = User.objects.filter(pk=self.object.pk)
         for temp in temp_user:
             user = temp
         temp_profile = User_Profile.objects.filter(profile=user)
-        for temp in temp_profile:
-            profile = temp
+        if temp_profile.count() != 0:
+            for temp in temp_profile:
+                profile = temp
+        else:
+            profile = None
         context['profile'] = profile
         return context
         # profile_list = []

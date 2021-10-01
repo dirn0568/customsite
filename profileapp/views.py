@@ -10,57 +10,50 @@ from profileapp.forms import ProfileForm, Update_ProfileForm
 from profileapp.models import User_Profile
 
 
-class Create_Profile_View(CreateView):
-    model = User_Profile
-    pk_url_kwarg = 'target_pk'
-    context_object_name = 'target_profile'
-    form_class = ProfileForm
-    template_name = 'create_profile.html'
-
-    def get_object(self, queryset=None):
-        print('작동되고있긴한가1351353151513531531')
-        return super().form_valid(self.pk)
-
-    def form_valid(self, form, pk):
-        print("실앻ㅇ주우우우웅")
-        temp_profile = form.save(commit=False)
-        temp_profile.pk = self.request.user
-        temp_profile.save()
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('mainapp:main')
-
-class Update_Profile_View(UpdateView):
-    model = User_Profile
-    form_class = Update_ProfileForm
-    context_object_name = 'target_profile'
-    template_name = ''
-
-    def get_success_url(self):
-        return reverse('', kwargs={'pk': self.object.pk})
-
-class Delete_Profile_View(DeleteView):
-    model = User_Profile
-    context_object_name = 'target_profile'
-    template_name = ''
-    success_url = reverse_lazy('mainapp:main')
-
 def create_profile(request, pk):
     if request.method == "POST":
         form = ProfileForm(request.POST, request.FILES)
-        print(request.POST,'이거거거거거거거거거거거거거')
-        print(form, '이건 무냐냐냐냐냐냐냐냐')
         if form.is_valid():
             temp_form = form.save(commit=False)
             temp_instance = User.objects.filter(pk=pk)
             for temp in temp_instance:
                 temp_form.profile = temp
-            print(temp_form.profile_img, 'form이 어떻게 생겼냐냐냐냐냐냐냐냐냐냐')
             temp_form.save()
             return redirect('accountapp:detail_user', pk)
     context = {}
     context['profile_form'] = ProfileForm
     context['pk'] = pk
     return render(request, 'create_profile.html', context)
+
+def update_profile(request, pk):
+    if request.method == "POST":
+        form = Update_ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            temp_instance = User.objects.filter(pk=pk)
+            for temp in temp_instance:
+                temp_profile = User_Profile.objects.filter(profile=temp)
+            for temp in temp_profile:
+                if len(request.POST['profile_text']) != 0:
+                    temp.profile_text = request.POST['profile_text']
+                if request.FILES:
+                    temp.profile_img = request.FILES['profile_img']
+                temp.save()
+            return redirect('accountapp:detail_user', pk)
+    context = {}
+    context['profile_form'] = Update_ProfileForm
+    context['pk'] = pk
+    return render(request, 'update_profile.html', context)
+
+def delete_profile(request, pk):
+    if request.method == "POST":
+        temp_instance = User.objects.filter(pk=pk)
+        for temp in temp_instance:
+            temp_profile = User_Profile.objects.filter(profile=temp)
+        for temp in temp_profile:
+            temp.delete()
+        return redirect('accountapp:detail_user', pk)
+    context = {}
+    context['pk'] = pk
+    return render(request, 'delete_profile.html', context)
+
 
