@@ -1,4 +1,5 @@
 import self
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -11,12 +12,17 @@ from profileapp.models import User_Profile
 
 
 def create_profile(request, pk):
+    temp_user = User.objects.filter(pk=pk)
+    for user_test in temp_user:
+        if request.user == user_test:
+            pass
+        else:
+            raise Http404("잘못된 접근입니다")
     if request.method == "POST":
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
             temp_form = form.save(commit=False)
-            temp_instance = User.objects.filter(pk=pk)
-            for temp in temp_instance:
+            for temp in temp_user:
                 temp_form.profile = temp
             temp_form.save()
             return redirect('accountapp:detail_user', pk)
@@ -26,11 +32,16 @@ def create_profile(request, pk):
     return render(request, 'create_profile.html', context)
 
 def update_profile(request, pk):
+    temp_user = User.objects.filter(pk=pk)
+    for user_test in temp_user:
+        if request.user == user_test:
+            pass
+        else:
+            raise Http404("잘못된 접근입니다")
     if request.method == "POST":
         form = Update_ProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            temp_instance = User.objects.filter(pk=pk)
-            for temp in temp_instance:
+            for temp in temp_user:
                 temp_profile = User_Profile.objects.filter(profile=temp)
             for temp in temp_profile:
                 if len(request.POST['profile_text']) != 0:
@@ -45,9 +56,14 @@ def update_profile(request, pk):
     return render(request, 'update_profile.html', context)
 
 def delete_profile(request, pk):
+    temp_user = User.objects.filter(pk=pk)
+    for user_test in temp_user:
+        if request.user == user_test:
+            pass
+        else:
+            raise Http404("잘못된 접근입니다")
     if request.method == "POST":
-        temp_instance = User.objects.filter(pk=pk)
-        for temp in temp_instance:
+        for temp in temp_user:
             temp_profile = User_Profile.objects.filter(profile=temp)
         for temp in temp_profile:
             temp.delete()
