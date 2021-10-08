@@ -22,6 +22,8 @@ var you_do_tan_angle2 = []
 
 var attack_point = ''
 
+var count = 0;
+
 
 // 플레이어
 function Ball() {
@@ -41,13 +43,13 @@ function DrawBall() {
 
 function MoveBall(direct) {
     if (direct == "left") {
-        ball_xpos -= 5
+        ball_xpos -= 10
     } else if (direct == "right") {
-        ball_xpos += 5
+        ball_xpos += 10
     } else if (direct == "top") {
-        ball_ypos += 5
+        ball_ypos += 10
     } else if (direct == "bottom") {
-        ball_ypos -= 5
+        ball_ypos -= 10
     }
 }
 
@@ -217,10 +219,15 @@ function Play() {
     ctx.fillStyle = color;
     DrawBall();
     BossDraw();
-    you_do_tan_Draw();
-    you_do_tan_Move_or_Hit();
-    you_do_tan_Draw2();
-    you_do_tan_Move_or_Hit2();
+    if (count >= 200 && count <= 500) {
+        you_do_tan_Draw();
+        you_do_tan_Move_or_Hit();
+        you_do_tan_Draw2();
+        you_do_tan_Move_or_Hit2();
+    } else {
+        you_do_tan();
+        you_do_tan2();
+    }
     BallHP();
     if (attack_point=='Boss') {
         BossHP();
@@ -229,6 +236,11 @@ function Play() {
       canvas.width=window.innerWidth;
       canvas.height=window.innerHeight;
     })
+    console.log(count);
+    count += 1
+    if (count == 1000) {
+        count = 0;
+    }
     requestAnimationFrame(Play);
 }
 Ball();
@@ -238,25 +250,44 @@ you_do_tan2();
 Play();
 
 
+//document.addEventListener("keydown", e => {
+//    switch(e.keyCode){
+//        case 39:
+////            MoveBall("right");
+//            ball_xpos += 10;
+//            break;
+//        case 37:
+////            MoveBall("left")
+//            ball_xpos -= 10;
+//            break;
+//        case 40:
+////            MoveBall("top");
+//            ball_ypos += 10;
+//            break;
+//        case 90:
+//            changeDirection();
+//            break;
+//        case 38:
+////            MoveBall("bottom");
+//            ball_ypos -= 10;
+//            break;
+//        default:
+//            break;
+//    }
+//})
+
 document.addEventListener("keydown", e => {
-    switch(e.keyCode){
-        case 39:
-            MoveBall("right");
-            break;
-        case 37:
-            MoveBall("left")
-            break;
-        case 40:
-            MoveBall("top");
-            break;
-        case 90:
-            changeDirection();
-            break;
-        case 38:
-            MoveBall("bottom");
-            break;
-        default:
-            break;
+    if (e.keyCode==39){
+        ball_xpos += 10;
+    }
+    if (e.keyCode==37){
+        ball_xpos -= 10;
+    }
+    if (e.keyCode==40){
+        ball_ypos += 10;
+    }
+    if (e.keyCode==38){
+        ball_ypos -= 10;
     }
 })
 
