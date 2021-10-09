@@ -24,6 +24,8 @@ var attack_point = ''
 
 var count = 0;
 
+var keypress = [false,false,false,false];
+
 
 // 플레이어
 function Ball() {
@@ -119,7 +121,6 @@ function EnemyMove_or_Hit() {
             Enemy_angle[i][1] *= -1;
         }
         if (ball_xpos > Enemy_xpos[i]-Enemy_size && ball_xpos < Enemy_xpos[i]+Enemy_size && ball_ypos > Enemy_ypos[i]-Enemy_size && ball_ypos < Enemy_ypos[i]+Enemy_size) {
-            console.log('hit');
             ball_hp -= 100;
         }
     }
@@ -128,11 +129,25 @@ function EnemyMove_or_Hit() {
 function you_do_tan() {
     you_do_tan_arrive_xpos = ball_xpos;
     you_do_tan_arrive_ypos = ball_ypos;
-    for (i = 0; i < 10; i++) {
-        you_do_tan_xpos[i] = Math.floor(Math.random() * canvas.width);
+    for (i = 0; i < 5; i++) {
+        you_do_tan_xpos[i] = 0;
         you_do_tan_ypos[i] = Math.floor(Math.random() * canvas.height);
         you_do_tan_angle[i] = [(you_do_tan_arrive_xpos-you_do_tan_xpos[i])/100, (you_do_tan_arrive_ypos-you_do_tan_ypos[i])/100]
-        console.log(you_do_tan_angle)
+    }
+    for (i = 5; i < 10; i++) {
+        you_do_tan_xpos[i] = canvas.width
+        you_do_tan_ypos[i] = Math.floor(Math.random() * canvas.height);
+        you_do_tan_angle[i] = [(you_do_tan_arrive_xpos-you_do_tan_xpos[i])/100, (you_do_tan_arrive_ypos-you_do_tan_ypos[i])/100]
+    }
+    for (i = 10; i < 15; i++) {
+        you_do_tan_xpos[i] = Math.floor(Math.random() * canvas.width);
+        you_do_tan_ypos[i] = 0
+        you_do_tan_angle[i] = [(you_do_tan_arrive_xpos-you_do_tan_xpos[i])/100, (you_do_tan_arrive_ypos-you_do_tan_ypos[i])/100]
+    }
+    for (i = 15; i < 20; i++) {
+        you_do_tan_xpos[i] = Math.floor(Math.random() * canvas.width);
+        you_do_tan_ypos[i] = canvas.height;
+        you_do_tan_angle[i] = [(you_do_tan_arrive_xpos-you_do_tan_xpos[i])/100, (you_do_tan_arrive_ypos-you_do_tan_ypos[i])/100]
     }
     you_do_tan_size = 20;
     you_do_tan_color = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
@@ -153,7 +168,6 @@ function you_do_tan_Move_or_Hit() {
         you_do_tan_xpos[i] += you_do_tan_angle[i][0];  // 바꿔야함
         you_do_tan_ypos[i] += you_do_tan_angle[i][1]; // 바꿔야함
         if (ball_xpos > you_do_tan_xpos[i]-you_do_tan_size && ball_xpos < you_do_tan_xpos[i]+you_do_tan_size && ball_ypos > you_do_tan_ypos[i]-you_do_tan_size && ball_ypos < you_do_tan_ypos[i]+you_do_tan_size) {
-            console.log('hit');
             ball_hp -= 100;
         }
     }
@@ -162,11 +176,25 @@ function you_do_tan_Move_or_Hit() {
 function you_do_tan2() {
     you_do_tan_arrive_xpos2 = ball_xpos;
     you_do_tan_arrive_ypos2 = ball_ypos;
-    for (i = 0; i < 10; i++) {
-        you_do_tan_xpos2[i] = Math.floor(Math.random() * canvas.width);
+    for (i = 0; i < 5; i++) {
+        you_do_tan_xpos2[i] = 0;
         you_do_tan_ypos2[i] = Math.floor(Math.random() * canvas.height);
         you_do_tan_angle2[i] = [(you_do_tan_arrive_xpos2-you_do_tan_xpos2[i])/100, (you_do_tan_arrive_ypos2-you_do_tan_ypos2[i])/100]
-        console.log(you_do_tan_angle2)
+    }
+    for (i = 5; i < 10; i++) {
+        you_do_tan_xpos2[i] = canvas.width
+        you_do_tan_ypos2[i] = Math.floor(Math.random() * canvas.height);
+        you_do_tan_angle2[i] = [(you_do_tan_arrive_xpos2-you_do_tan_xpos2[i])/100, (you_do_tan_arrive_ypos2-you_do_tan_ypos2[i])/100]
+    }
+    for (i = 10; i < 15; i++) {
+        you_do_tan_xpos2[i] = Math.floor(Math.random() * canvas.width);
+        you_do_tan_ypos2[i] = 0
+        you_do_tan_angle2[i] = [(you_do_tan_arrive_xpos2-you_do_tan_xpos2[i])/100, (you_do_tan_arrive_ypos2-you_do_tan_ypos2[i])/100]
+    }
+    for (i = 15; i < 20; i++) {
+        you_do_tan_xpos2[i] = Math.floor(Math.random() * canvas.width);
+        you_do_tan_ypos2[i] = canvas.height;
+        you_do_tan_angle2[i] = [(you_do_tan_arrive_xpos2-you_do_tan_xpos2[i])/100, (you_do_tan_arrive_ypos2-you_do_tan_ypos2[i])/100]
     }
     you_do_tan_size2 = 20;
     you_do_tan_color2 = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
@@ -187,7 +215,6 @@ function you_do_tan_Move_or_Hit2() {
         you_do_tan_xpos2[i] += you_do_tan_angle2[i][0];  // 바꿔야함
         you_do_tan_ypos2[i] += you_do_tan_angle2[i][1]; // 바꿔야함
         if (ball_xpos > you_do_tan_xpos2[i]-you_do_tan_size2 && ball_xpos < you_do_tan_xpos2[i]+you_do_tan_size2 && ball_ypos > you_do_tan_ypos2[i]-you_do_tan_size2 && ball_ypos < you_do_tan_ypos2[i]+you_do_tan_size2) {
-            console.log('hit');
             ball_hp -= 100;
         }
     }
@@ -199,9 +226,6 @@ function EnemyRemove() {
             Enemy_xpos.splice(i, 1);
             Enemy_ypos.splice(i, 1);
             Enemy_angle.splice(i, 1);
-            console.log(Enemy_xpos);
-            console.log(Enemy_ypos);
-            console.log(Enemy_angle);
             attack_point = 'Ball'
         }
     }
@@ -213,6 +237,24 @@ function EnemyRemove() {
 
 // Play
 
+function keylist() {
+    setInterval(function(){
+        if (keypress[0] == true) {
+            ball_xpos += 10;
+        }
+        if (keypress[1] == true){
+            ball_xpos -= 10;
+        }
+        if (keypress[2] == true){
+            ball_ypos += 10;
+        }
+        if (keypress[3] == true){
+            ball_ypos -= 10;
+        }
+        console.log(keypress);
+    }, 10);
+}
+
 function Play() {
     ctx.fillStyle = ctx.fillStyle='rgba(255,255,255,0.5)';
     ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -220,12 +262,12 @@ function Play() {
     DrawBall();
     BossDraw();
     if (count >= 200 && count <= 500) {
-        you_do_tan_Draw();
-        you_do_tan_Move_or_Hit();
+//        you_do_tan_Draw();
+//        you_do_tan_Move_or_Hit();
         you_do_tan_Draw2();
         you_do_tan_Move_or_Hit2();
     } else {
-        you_do_tan();
+//        you_do_tan();
         you_do_tan2();
     }
     BallHP();
@@ -236,7 +278,6 @@ function Play() {
       canvas.width=window.innerWidth;
       canvas.height=window.innerHeight;
     })
-    console.log(count);
     count += 1
     if (count == 1000) {
         count = 0;
@@ -245,49 +286,39 @@ function Play() {
 }
 Ball();
 Boss();
-you_do_tan();
+//you_do_tan();
 you_do_tan2();
+keylist();
 Play();
 
 
-//document.addEventListener("keydown", e => {
-//    switch(e.keyCode){
-//        case 39:
-////            MoveBall("right");
-//            ball_xpos += 10;
-//            break;
-//        case 37:
-////            MoveBall("left")
-//            ball_xpos -= 10;
-//            break;
-//        case 40:
-////            MoveBall("top");
-//            ball_ypos += 10;
-//            break;
-//        case 90:
-//            changeDirection();
-//            break;
-//        case 38:
-////            MoveBall("bottom");
-//            ball_ypos -= 10;
-//            break;
-//        default:
-//            break;
-//    }
-//})
-
 document.addEventListener("keydown", e => {
     if (e.keyCode==39){
-        ball_xpos += 10;
+        keypress[0] = true;
     }
     if (e.keyCode==37){
-        ball_xpos -= 10;
+        keypress[1] = true;
     }
     if (e.keyCode==40){
-        ball_ypos += 10;
+        keypress[2] = true;
     }
     if (e.keyCode==38){
-        ball_ypos -= 10;
+        keypress[3] = true;
+    }
+})
+
+document.addEventListener("keyup", e => {
+    if (e.keyCode==39){
+        keypress[0] = false;
+    }
+    if (e.keyCode==37){
+        keypress[1] = false;
+    }
+    if (e.keyCode==40){
+        keypress[2] = false;
+    }
+    if (e.keyCode==38){
+        keypress[3] = false;
     }
 })
 
