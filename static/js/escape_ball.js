@@ -179,22 +179,74 @@ function you_do_tan2() {
     for (i = 0; i < 5; i++) {
         you_do_tan_xpos2[i] = 0;
         you_do_tan_ypos2[i] = Math.floor(Math.random() * canvas.height);
-        you_do_tan_angle2[i] = [(you_do_tan_arrive_xpos2-you_do_tan_xpos2[i])/100, (you_do_tan_arrive_ypos2-you_do_tan_ypos2[i])/100]
+        z1 = you_do_tan_arrive_xpos2-you_do_tan_xpos2[i];
+        z2 = you_do_tan_arrive_ypos2-you_do_tan_ypos2[i];
+        j = 1;
+        while (true) {
+            if (Math.abs(z1) < 1 && Math.abs(z2) < 1){
+                z1 *= 7
+                z2 *= 7
+                break;
+            }
+            z1 /= j
+            z2 /= j
+            j++;
+        }
+        you_do_tan_angle2[i] = [z1, z2]
     }
     for (i = 5; i < 10; i++) {
         you_do_tan_xpos2[i] = canvas.width
         you_do_tan_ypos2[i] = Math.floor(Math.random() * canvas.height);
-        you_do_tan_angle2[i] = [(you_do_tan_arrive_xpos2-you_do_tan_xpos2[i])/100, (you_do_tan_arrive_ypos2-you_do_tan_ypos2[i])/100]
+        z1 = you_do_tan_arrive_xpos2-you_do_tan_xpos2[i];
+        z2 = you_do_tan_arrive_ypos2-you_do_tan_ypos2[i];
+        j = 1;
+        while (true) {
+            if (Math.abs(z1) < 1 && Math.abs(z2) < 1){
+                z1 *= 7
+                z2 *= 7
+                break;
+            }
+            z1 /= j
+            z2 /= j
+            j++;
+        }
+        you_do_tan_angle2[i] = [z1, z2]
     }
     for (i = 10; i < 15; i++) {
         you_do_tan_xpos2[i] = Math.floor(Math.random() * canvas.width);
         you_do_tan_ypos2[i] = 0
-        you_do_tan_angle2[i] = [(you_do_tan_arrive_xpos2-you_do_tan_xpos2[i])/100, (you_do_tan_arrive_ypos2-you_do_tan_ypos2[i])/100]
+        z1 = you_do_tan_arrive_xpos2-you_do_tan_xpos2[i];
+        z2 = you_do_tan_arrive_ypos2-you_do_tan_ypos2[i];
+        j = 1;
+        while (true) {
+            if (Math.abs(z1) < 1 && Math.abs(z2) < 1){
+                z1 *= 7
+                z2 *= 7
+                break;
+            }
+            z1 /= j
+            z2 /= j
+            j++;
+        }
+        you_do_tan_angle2[i] = [z1, z2]
     }
     for (i = 15; i < 20; i++) {
         you_do_tan_xpos2[i] = Math.floor(Math.random() * canvas.width);
         you_do_tan_ypos2[i] = canvas.height;
-        you_do_tan_angle2[i] = [(you_do_tan_arrive_xpos2-you_do_tan_xpos2[i])/100, (you_do_tan_arrive_ypos2-you_do_tan_ypos2[i])/100]
+        z1 = you_do_tan_arrive_xpos2-you_do_tan_xpos2[i];
+        z2 = you_do_tan_arrive_ypos2-you_do_tan_ypos2[i];
+        j = 1;
+        while (true) {
+            if (Math.abs(z1) < 1 && Math.abs(z2) < 1){
+                z1 *= 7
+                z2 *= 7
+                break;
+            }
+            z1 /= j
+            z2 /= j
+            j++;
+        }
+        you_do_tan_angle2[i] = [z1, z2]
     }
     you_do_tan_size2 = 20;
     you_do_tan_color2 = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
@@ -251,7 +303,6 @@ function keylist() {
         if (keypress[3] == true){
             ball_ypos -= 10;
         }
-        console.log(keypress);
     }, 10);
 }
 
@@ -266,6 +317,7 @@ function Play() {
 //        you_do_tan_Move_or_Hit();
         you_do_tan_Draw2();
         you_do_tan_Move_or_Hit2();
+        console.log(you_do_tan_angle2);
     } else {
 //        you_do_tan();
         you_do_tan2();
