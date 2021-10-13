@@ -126,6 +126,119 @@ function EnemyMove_or_Hit() {
     }
 }
 
+arrow_pos = []
+function arrow() {
+    arrow_arrive_xpos = ball_xpos;
+    arrow_arrive_ypos = ball_ypos;
+    arrow_random_pos = [[0, Math.floor(Math.random()*canvas.height)], [canvas.width, Math.floor(Math.random()*canvas.height)], [Math.floor(Math.random()*canvas.height), 0], [Math.floor(Math.random()*canvas.width), canvas.height]];
+    arrow_pos.push(arrow_random_pos[Math.floor(Math.random()*4)]);
+    z1 = arrow_arrive_xpos - arrow_pos[0];
+    z2 = arrow_arrive_ypos - arrow_pos[1];
+    z3 = 0
+    j = 1;
+    while (true) {
+        if (Math.abs(z1) < 5 && Math.abs(z2) < 5){
+            z3 = z1 / z2
+            if (z1 > 0 && z2 > 0) {
+                if (Math.abs(z3) < 0.2){
+                    z1 = 0
+                    z2 = 10
+                }
+                if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                    z1 = 2
+                    z2 = 6
+                }
+                if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                    z1 = 6
+                    z2 = 2
+                }
+                if (Math.abs(z3) > 7) {
+                    z1 = 10
+                    z2 = 0
+                }
+            }
+            if (z1 > 0 && z2 < 0) {
+                if (Math.abs(z3) < 0.2){
+                    z1 = 0
+                    z2 = -10
+                }
+                if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                    z1 = 2
+                    z2 = -6
+                }
+                if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                    z1 = 6
+                    z2 = -2
+                }
+                if (Math.abs(z3) > 7) {
+                    z1 = 10
+                    z2 = 0
+                }
+            }
+            if (z1 < 0 && z2 < 0) {
+                if (Math.abs(z3) < 0.2){
+                    z1 = 0
+                    z2 = -10
+                }
+                if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                    z1 = -2
+                    z2 = -6
+                }
+                if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                    z1 = -6
+                    z2 = -2
+                }
+                if (Math.abs(z3) > 7) {
+                    z1 = -10
+                    z2 = 0
+                }
+            }
+            if (z1 < 0 && z2 > 0) {
+                if (Math.abs(z3) < 0.2){
+                    z1 = 0
+                    z2 = 10
+                }
+                if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                    z1 = -2
+                    z2 = 6
+                }
+                if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                    z1 = -6
+                    z2 = 2
+                }
+                if (Math.abs(z3) > 7) {
+                    z1 = -10
+                    z2 = 0
+                }
+            }
+            break;
+        }
+        z1 /= j
+        z2 /= j
+        j++;
+    }
+    arrow_angle[i] = [z1, z2]
+}
+
+function arrow_draw() {
+    arrow_color = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
+    arrow_size = 20;
+    for (i = 0; i < arrow_pos.length; i++) {
+        ctx.fillStyle = arrow_color;
+        ctx.beginPath();
+        ctx.arc(arrow_pos[i][0], arrow_pos[i][1], arrow_size, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.fill();
+    }
+}
+function arrow_move() {
+    for (i=0; i<arrow_pos.length; i++) {
+        arrow_pos[i][0] = arrow_pos[i][0] + arrow_angle[i][0];
+        arrow_pos[i][1] = arrow_pos[i][1] + arrow_angle[i][1];
+    }
+}
+
+
 function you_do_tan() {
     you_do_tan_arrive_xpos = ball_xpos;
     you_do_tan_arrive_ypos = ball_ypos;
@@ -181,11 +294,83 @@ function you_do_tan2() {
         you_do_tan_ypos2[i] = Math.floor(Math.random() * canvas.height);
         z1 = you_do_tan_arrive_xpos2-you_do_tan_xpos2[i];
         z2 = you_do_tan_arrive_ypos2-you_do_tan_ypos2[i];
+        z3 = 0;
         j = 1;
         while (true) {
-            if (Math.abs(z1) < 1 && Math.abs(z2) < 1){
-                z1 *= 7
-                z2 *= 7
+            if (Math.abs(z1) < 5 && Math.abs(z2) < 5){
+                z3 = z1 / z2
+                if (z1 > 0 && z2 > 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = 10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = 2
+                        z2 = 6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = 6
+                        z2 = 2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = 10
+                        z2 = 0
+                    }
+                }
+                if (z1 > 0 && z2 < 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = -10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = 2
+                        z2 = -6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = 6
+                        z2 = -2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = 10
+                        z2 = 0
+                    }
+                }
+                if (z1 < 0 && z2 < 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = -10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = -2
+                        z2 = -6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = -6
+                        z2 = -2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = -10
+                        z2 = 0
+                    }
+                }
+                if (z1 < 0 && z2 > 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = 10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = -2
+                        z2 = 6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = -6
+                        z2 = 2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = -10
+                        z2 = 0
+                    }
+                }
                 break;
             }
             z1 /= j
@@ -199,11 +384,83 @@ function you_do_tan2() {
         you_do_tan_ypos2[i] = Math.floor(Math.random() * canvas.height);
         z1 = you_do_tan_arrive_xpos2-you_do_tan_xpos2[i];
         z2 = you_do_tan_arrive_ypos2-you_do_tan_ypos2[i];
+        z3 = 0;
         j = 1;
         while (true) {
-            if (Math.abs(z1) < 1 && Math.abs(z2) < 1){
-                z1 *= 7
-                z2 *= 7
+            if (Math.abs(z1) < 5 && Math.abs(z2) < 5){
+                z3 = z1 / z2
+                if (z1 > 0 && z2 > 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = 10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = 2
+                        z2 = 6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = 6
+                        z2 = 2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = 10
+                        z2 = 0
+                    }
+                }
+                if (z1 > 0 && z2 < 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = -10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = 2
+                        z2 = -6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = 6
+                        z2 = -2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = 10
+                        z2 = 0
+                    }
+                }
+                if (z1 < 0 && z2 < 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = -10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = -2
+                        z2 = -6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = -6
+                        z2 = -2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = -10
+                        z2 = 0
+                    }
+                }
+                if (z1 < 0 && z2 > 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = 10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = -2
+                        z2 = 6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = -6
+                        z2 = 2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = -10
+                        z2 = 0
+                    }
+                }
                 break;
             }
             z1 /= j
@@ -217,11 +474,83 @@ function you_do_tan2() {
         you_do_tan_ypos2[i] = 0
         z1 = you_do_tan_arrive_xpos2-you_do_tan_xpos2[i];
         z2 = you_do_tan_arrive_ypos2-you_do_tan_ypos2[i];
+        z3 = 0;
         j = 1;
         while (true) {
-            if (Math.abs(z1) < 1 && Math.abs(z2) < 1){
-                z1 *= 7
-                z2 *= 7
+            if (Math.abs(z1) < 5 && Math.abs(z2) < 5){
+                z3 = z1 / z2
+                if (z1 > 0 && z2 > 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = 10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = 2
+                        z2 = 6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = 6
+                        z2 = 2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = 10
+                        z2 = 0
+                    }
+                }
+                if (z1 > 0 && z2 < 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = -10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = 2
+                        z2 = -6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = 6
+                        z2 = -2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = 10
+                        z2 = 0
+                    }
+                }
+                if (z1 < 0 && z2 < 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = -10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = -2
+                        z2 = -6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = -6
+                        z2 = -2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = -10
+                        z2 = 0
+                    }
+                }
+                if (z1 < 0 && z2 > 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = 10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = -2
+                        z2 = 6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = -6
+                        z2 = 2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = -10
+                        z2 = 0
+                    }
+                }
                 break;
             }
             z1 /= j
@@ -235,11 +564,135 @@ function you_do_tan2() {
         you_do_tan_ypos2[i] = canvas.height;
         z1 = you_do_tan_arrive_xpos2-you_do_tan_xpos2[i];
         z2 = you_do_tan_arrive_ypos2-you_do_tan_ypos2[i];
+        z3 = 0;
         j = 1;
         while (true) {
-            if (Math.abs(z1) < 1 && Math.abs(z2) < 1){
-                z1 *= 7
-                z2 *= 7
+            if (Math.abs(z1) < 5 && Math.abs(z2) < 5){
+                z3 = z1 / z2
+                if (z1 > 0 && z2 > 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = 10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = 2
+                        z2 = 6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = 6
+                        z2 = 2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = 10
+                        z2 = 0
+                    }
+                }
+                if (z1 > 0 && z2 < 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = -10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = 2
+                        z2 = -6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = 6
+                        z2 = -2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = 10
+                        z2 = 0
+                    }
+                }
+                if (z1 < 0 && z2 < 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = -10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = -2
+                        z2 = -6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = -6
+                        z2 = -2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = -10
+                        z2 = 0
+                    }
+                }
+                if (z1 < 0 && z2 > 0) {
+                    if (Math.abs(z3) < 0.2){
+                        z1 = 0
+                        z2 = 10
+                    }
+                    if (Math.abs(z3) > 0.2 && Math.abs(z3) < 1) {
+                        z1 = -2
+                        z2 = 6
+                    }
+                    if (Math.abs(z3) > 1 && Math.abs(z3) < 7) {
+                        z1 = -6
+                        z2 = 2
+                    }
+                    if (Math.abs(z3) > 7) {
+                        z1 = -10
+                        z2 = 0
+                    }
+                }
+//               if (z1 > 0.5 && z1 < 1.5 && z2 > 1.5 && z2 < 3.5) {
+//                    z1 = 1
+//                    z2 = 3
+//                }
+//                if (z1 > 1.5 && z1 < 3.5 && z2 < 1.5 && z2 > 0.5) {
+//                    z1 = 3
+//                    z2 = 1
+//                }
+//                if (z1 > 3.5 && z1 < 5 && z2 < 0.5 && z2 > -0.5) {
+//                    z1 = 5
+//                    z2 = 0
+//                }
+//                if (z1 > 1.5 && z1 < 3.5 && z2 < -0.5 && z2 > -1.5) {
+//                    z1 = 3
+//                    z2 = -1
+//                }
+//                if (z1 > 0.5 && z1 < 1.5 && z2 < -1.5 && z2 > -3.5) {
+//                    z1 = 1
+//                    z2 = -3
+//                }
+//                if (z1 > -0.5 && z1 < 0.5 && z2 < -3.5 && z2 > -5) {
+//                    z1 = 0
+//                    z2 = -5
+//                }
+//                if (z1 < -0.5 && z1 > -1.5 && z2 > -3.5 && z2 < -1.5) {
+//                    z1 = -1
+//                    z2 = -3
+//                }
+//                if (z1 < -1.5 && z1 > -3.5 && z2 < -0.5 && z2 > -1.5) {
+//                    z1 = -3
+//                    z2 = -1
+//                }
+//                if (z1 < -3.5 && z1 > -5 && z2 < 0.5 && z2 > -0.5) {
+//                    z1 = -5
+//                    z2 = 0
+//                }
+//                if (z1 > -3.5 && z1 < -1.5 && z2 > 0.5 && z2 < 1.5) {
+//                    z1 = -3
+//                    z2 = 1
+//                }
+//                if (z1 > -1.5 && z1 < -0.5 && z2 > 1.5 && z2 < 3.5) {
+//                    z1 = -1
+//                    z2 = 3
+//                }
+//                if (z1 > -0.5 && z1 < 0.5 && z2 > 3.5 && z2 < 5) {
+//                    z1 = 0
+//                    z2 = 5
+//                }
+//                z1 *= canvas.width;
+//                z2 *= canvas.width;
+//                z1 /= 100;
+//                z2 /= 100;
                 break;
             }
             z1 /= j
@@ -311,21 +764,25 @@ function Play() {
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle = color;
     DrawBall();
-    BossDraw();
+//    BossDraw();
+    if (count >= 100 && count <= 200) {
+        arrow_draw();
+        arrow_move();
+    }
     if (count >= 200 && count <= 500) {
 //        you_do_tan_Draw();
 //        you_do_tan_Move_or_Hit();
         you_do_tan_Draw2();
         you_do_tan_Move_or_Hit2();
-        console.log(you_do_tan_angle2);
+//        console.log(you_do_tan_angle2);
     } else {
 //        you_do_tan();
         you_do_tan2();
     }
     BallHP();
-    if (attack_point=='Boss') {
-        BossHP();
-    }
+//    if (attack_point=='Boss') {
+//        BossHP();
+//    }
     window.addEventListener('resize',function(){ // 화면 크기가 변하면 캔버스 크기도 변경해줌
       canvas.width=window.innerWidth;
       canvas.height=window.innerHeight;
@@ -337,7 +794,8 @@ function Play() {
     requestAnimationFrame(Play);
 }
 Ball();
-Boss();
+arrow();
+//Boss();
 //you_do_tan();
 you_do_tan2();
 keylist();
