@@ -13,5 +13,7 @@ urlpatterns = [
     path('message/', include('messageapp.urls')),
     path('profile/', include('profileapp.urls')),
 
+    path('game/', include('gameapp.urls')),
+
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

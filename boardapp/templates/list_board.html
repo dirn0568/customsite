@@ -58,7 +58,7 @@
             <hr>
             {% for list in list_board %}
                 <h1>
-                    <a href="#" onclick="list_board_js({{ list.Board_title }}{{ list.pk }})">
+                    <a href="#" onclick="list_board_js(board{{ list.pk }})">
                         &nbsp;{{ list.pk }}
                         <div style="float:right">
                             {{ list.Board_date|date:"Y-m-d" }}
@@ -75,7 +75,7 @@
                         </div>
                     </a>
                 </h1>
-                <input hidden id="{{ list.Board_title }}{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">
+                <input hidden id="board{{ list.pk }}" value="{% url 'boardapp:detail_board' pk=list.pk %}">
             <hr>
             {% endfor %}
 

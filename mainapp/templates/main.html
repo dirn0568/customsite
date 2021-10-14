@@ -40,6 +40,8 @@
             <input hidden id="friend_list_html" value="{% url 'friendapp:friend_list' pk=request.user.pk %}">
         {% endif %}
         <a href="{% url 'accountapp:create_user' %}">회원가입</a>
+        <p></p>
+        <a href="{% url 'gameapp:escape_ball' %}">공피하기게임</a>
     </h1>
 <!--    <a href='https://.pngtree.com/so/편지'>편지 png에서 .pngtree.com/</a>-->
 </body>

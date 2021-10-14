@@ -1,4 +1,5 @@
 function list_board_js(list_board_html) {
+    console.log(list_board_html);
     window.open(list_board_html.value);
 }
 

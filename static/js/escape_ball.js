@@ -1,8 +1,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = window.innerWidth-100;
+canvas.height = window.innerHeight-100;
 
 var ball_hp = 2000;
 
@@ -12,6 +12,9 @@ var Enemy_xpos = new Array();
 var Enemy_ypos = new Array();
 var Enemy_angle = [[5,5],[4,6],[6,4],[-4,6],[4,-6],[-4,-6],[3,-7],[-7,3],[-6,-4],[-5,-5]];
 
+var arrow_pos = [];
+var arrow_angle = [];
+
 var you_do_tan_xpos = new Array();
 var you_do_tan_ypos = new Array();
 var you_do_tan_angle = []
@@ -20,11 +23,22 @@ var you_do_tan_xpos2 = new Array();
 var you_do_tan_ypos2 = new Array();
 var you_do_tan_angle2 = []
 
+var time = 0;
+var hour = 0;
+var min = 0;
+var sec = 0;
+var timer;
+var th = hour;
+var tm = min;
+var ts = sec;
+
 var attack_point = ''
 
 var count = 0;
 
 var keypress = [false,false,false,false];
+
+var Playing = true
 
 
 // 플레이어
@@ -55,85 +69,16 @@ function MoveBall(direct) {
     }
 }
 
-function BallHP() {
-    hp_color = 'rgba('+255+','+0+','+0+')';
-    ctx.fillStyle = hp_color;
-    ctx.beginPath();
-    ctx.fillRect(0,0,ball_hp,100);
-    ctx.closePath();
-    ctx.fill();
-}
-
-// 보스몹
-
-function Boss() {
-    Boss_xpos = canvas.width*0.5;
-    Boss_ypos = canvas.height*0.5;
-    Boss_width = 50;
-    Boss_height = 100;
-    Boss_color = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
-}
-
-function BossDraw() {
-    ctx.fillStyle = Boss_color;
-    ctx.beginPath();
-    ctx.fillRect(Boss_xpos,Boss_ypos,Boss_width,Boss_height);
-    ctx.closePath();
-    ctx.fill();
-}
-
-function BossHP() {
-    Boss_hp_color = 'rgba('+255+','+255+','+0+')';
-    ctx.fillStyle = Boss_hp_color;
-    ctx.beginPath();
-    ctx.fillRect(canvas.width-100,0,100,Boss_hp);
-    ctx.closePath();
-    ctx.fill();
-}
 
 // 장애물
 
-function Enemy() {
-    for (i = 0; i < 10; i++) {
-        Enemy_xpos[i] = Math.floor(Math.random() * canvas.width);
-        Enemy_ypos[i] = Math.floor(Math.random() * canvas.height);
-    }
-    Enemy_size = 20;
-    Enemy_color = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
-}
-
-function EnemyDraw() {
-    for (i = 0; i < Enemy_xpos.length; i++) {
-        ctx.fillStyle = Enemy_color;
-        ctx.beginPath();
-        ctx.arc(Enemy_xpos[i], Enemy_ypos[i], Enemy_size, 0, Math.PI*2, true);
-        ctx.closePath();
-        ctx.fill();
-    }
-}
-
-function EnemyMove_or_Hit() {
-    for (i = 0; i < Enemy_xpos.length; i++) {
-        Enemy_xpos[i] += Enemy_angle[i][0];
-        Enemy_ypos[i] += Enemy_angle[i][1];
-        if (Enemy_xpos[i] > canvas.width || Enemy_xpos[i] < 0 || Enemy_ypos[i] > canvas.height || Enemy_ypos[i] < 0) {
-            Enemy_angle[i][0] *= -1;
-            Enemy_angle[i][1] *= -1;
-        }
-        if (ball_xpos > Enemy_xpos[i]-Enemy_size && ball_xpos < Enemy_xpos[i]+Enemy_size && ball_ypos > Enemy_ypos[i]-Enemy_size && ball_ypos < Enemy_ypos[i]+Enemy_size) {
-            ball_hp -= 100;
-        }
-    }
-}
-
-arrow_pos = []
 function arrow() {
     arrow_arrive_xpos = ball_xpos;
     arrow_arrive_ypos = ball_ypos;
     arrow_random_pos = [[0, Math.floor(Math.random()*canvas.height)], [canvas.width, Math.floor(Math.random()*canvas.height)], [Math.floor(Math.random()*canvas.height), 0], [Math.floor(Math.random()*canvas.width), canvas.height]];
     arrow_pos.push(arrow_random_pos[Math.floor(Math.random()*4)]);
-    z1 = arrow_arrive_xpos - arrow_pos[0];
-    z2 = arrow_arrive_ypos - arrow_pos[1];
+    z1 = arrow_arrive_xpos - arrow_pos[arrow_pos.length - 1][0];
+    z2 = arrow_arrive_ypos - arrow_pos[arrow_pos.length - 1][1];
     z3 = 0
     j = 1;
     while (true) {
@@ -217,11 +162,15 @@ function arrow() {
         z2 /= j
         j++;
     }
-    arrow_angle[i] = [z1, z2]
+    arrow_angle.push([z1, z2]);
+    if (arrow_pos.length > 100) {
+        arrow_pos.shift();
+        arrow_angle.shift();
+    }
 }
 
 function arrow_draw() {
-    arrow_color = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
+    arrow_color = 'rgba('+50+','+25+','+100+')';
     arrow_size = 20;
     for (i = 0; i < arrow_pos.length; i++) {
         ctx.fillStyle = arrow_color;
@@ -235,6 +184,9 @@ function arrow_move() {
     for (i=0; i<arrow_pos.length; i++) {
         arrow_pos[i][0] = arrow_pos[i][0] + arrow_angle[i][0];
         arrow_pos[i][1] = arrow_pos[i][1] + arrow_angle[i][1];
+        if (ball_xpos > arrow_pos[i][0]-arrow_size && ball_xpos < arrow_pos[i][0]+arrow_size && ball_ypos > arrow_pos[i][1]-arrow_size && ball_ypos < arrow_pos[i][1]+arrow_size) {
+//            Playing = false;
+        }
     }
 }
 
@@ -720,23 +672,8 @@ function you_do_tan_Move_or_Hit2() {
         you_do_tan_xpos2[i] += you_do_tan_angle2[i][0];  // 바꿔야함
         you_do_tan_ypos2[i] += you_do_tan_angle2[i][1]; // 바꿔야함
         if (ball_xpos > you_do_tan_xpos2[i]-you_do_tan_size2 && ball_xpos < you_do_tan_xpos2[i]+you_do_tan_size2 && ball_ypos > you_do_tan_ypos2[i]-you_do_tan_size2 && ball_ypos < you_do_tan_ypos2[i]+you_do_tan_size2) {
-            ball_hp -= 100;
+//            Playing = false;
         }
-    }
-}
-
-function EnemyRemove() {
-    for (i = 0; i < Enemy_xpos.length; i++) {
-        if (mouse_xpos > Enemy_xpos[i]-Enemy_size && mouse_xpos < Enemy_xpos[i]+Enemy_size && mouse_ypos > Enemy_ypos[i]-Enemy_size && mouse_ypos < Enemy_ypos[i]+Enemy_size) {
-            Enemy_xpos.splice(i, 1);
-            Enemy_ypos.splice(i, 1);
-            Enemy_angle.splice(i, 1);
-            attack_point = 'Ball'
-        }
-    }
-    if (mouse_xpos > Boss_xpos && mouse_xpos < Boss_xpos+Boss_width && mouse_ypos > Boss_ypos && mouse_ypos < Boss_ypos+Boss_height) {
-        Boss_hp -= 10;
-        attack_point = 'Boss'
     }
 }
 
@@ -744,6 +681,18 @@ function EnemyRemove() {
 
 function keylist() {
     setInterval(function(){
+        if (ball_xpos > canvas.width-20) {
+            keypress[0] = false;
+        }
+        if (ball_xpos < 0 + 20) {
+            keypress[1] = false;
+        }
+        if (ball_ypos > canvas.height-20) {
+            keypress[2] = false;
+        }
+        if (ball_ypos < 0+20) {
+            keypress[3] = false;
+        }
         if (keypress[0] == true) {
             ball_xpos += 10;
         }
@@ -759,44 +708,61 @@ function keylist() {
     }, 10);
 }
 
+function TimeEvt(){
+    document.getElementById("time").innerHTML = "00:00:00";
+    timer = setInterval(function(){
+        time++;
+        min = Math.floor(time/60);
+        hour = Math.floor(min/60);
+        sec = time%60;
+        min = min%60;
+
+        if(hour<10){
+            hour = "0" + hour;
+        }
+        if(min < 10){
+            min = "0" + min;
+        }
+        if(sec < 10){
+            sec = "0" + sec;
+        }
+
+        document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
+    }, 1000)
+}
+
 function Play() {
     ctx.fillStyle = ctx.fillStyle='rgba(255,255,255,0.5)';
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle = color;
     DrawBall();
-//    BossDraw();
-    if (count >= 100 && count <= 200) {
-        arrow_draw();
-        arrow_move();
+    if (count % 10 == 0) {
+        arrow();
     }
+    arrow_draw();
+    arrow_move();
     if (count >= 200 && count <= 500) {
-//        you_do_tan_Draw();
-//        you_do_tan_Move_or_Hit();
         you_do_tan_Draw2();
         you_do_tan_Move_or_Hit2();
-//        console.log(you_do_tan_angle2);
     } else {
-//        you_do_tan();
         you_do_tan2();
     }
-    BallHP();
-//    if (attack_point=='Boss') {
-//        BossHP();
-//    }
-    window.addEventListener('resize',function(){ // 화면 크기가 변하면 캔버스 크기도 변경해줌
-      canvas.width=window.innerWidth;
-      canvas.height=window.innerHeight;
-    })
     count += 1
     if (count == 1000) {
         count = 0;
     }
-    requestAnimationFrame(Play);
+    if (Playing == true) {
+        requestAnimationFrame(Play);
+    }
+    if (Playing == false) {
+        document.getElementById("gameover").innerHTML = "게임 종료:" + hour + ":" + min + ":" + sec;
+        document.getElementById("restart").innerHTML = "다시시작";
+        document.getElementById("test").innerHTML = "엌ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ개못햌ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ";
+        console.log('gameover');
+    }
 }
+TimeEvt();
 Ball();
-arrow();
-//Boss();
-//you_do_tan();
 you_do_tan2();
 keylist();
 Play();
@@ -830,10 +796,8 @@ document.addEventListener("keyup", e => {
     if (e.keyCode==38){
         keypress[3] = false;
     }
+    if (e.keyCode==32){
+        Playing = false;
+    }
 })
 
-document.addEventListener("click", e => {
-    mouse_xpos = event.offsetX;
-    mouse_ypos = event.offsetY;
-    EnemyRemove();
-})
